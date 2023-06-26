@@ -1,1 +1,5 @@
 Remake of ApertureScience.com in C.
+
+This project can be built for Windows or Linux, but can only be built on Linux.
+To build for Linux: $ make linux
+To build for Windows: $ make windows
