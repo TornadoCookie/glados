@@ -44,6 +44,7 @@ system("aplay logout.wav -q");
 }
 
 void process_glados_command(char *command, char *arg, bool is_cave) {
+    command[strlen(command)-1] = 0;
     clear();
     if (is_cave) {
         printf("GLaDOS v1.07a (c) 1982 Aperture Science, Inc.\n\n\n");
@@ -96,6 +97,8 @@ void process_glados_command(char *command, char *arg, bool is_cave) {
         #else
         system("./notes");
         #endif
+    } else if (command[0] == 0) {
+        return;
     } else {
         printf("\nERROR 24 [File '%s' not found]\n\n\n", command);
     }
