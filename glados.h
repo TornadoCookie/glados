@@ -9,5 +9,6 @@
 #define clear() system("clear")
 #endif
 
+#define STRING_BUFFER_SIZE 100
 
 #endif

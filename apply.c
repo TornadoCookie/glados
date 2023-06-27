@@ -6,9 +6,9 @@
 #include "glados.h"
 
 void require_continue() {
-    char entry[100];
+    char entry[STRING_BUFFER_SIZE];
     printf(">");
-    fgets(entry, 100, stdin);
+    fgets(entry, sizeof(entry), stdin);
     if (streq(entry, "QUIT")) {
         exit(0);
     }
@@ -16,7 +16,7 @@ void require_continue() {
 }
 
 void do_question(int pageN, char *question, bool requires_int) {
-    char entry[100];
+    char entry[STRING_BUFFER_SIZE];
     int entry_n;
     clear();
     printf("Form FORMS-EN-2873-FORM - Page %d\n\n\n", pageN);
@@ -25,7 +25,7 @@ void do_question(int pageN, char *question, bool requires_int) {
     if (requires_int) {
         scanf("%d", &entry_n);
     } else {
-        fgets(entry, 100, stdin);
+        fgets(entry, sizeof(entry), stdin);
     }
 }
 

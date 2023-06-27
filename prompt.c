@@ -76,7 +76,7 @@ void process_glados_command(char *command, char *arg, bool is_cave) {
 void glados(bool is_cave) {
     clear();
     printf("GLaDOS v1.07 (c) 1982 Aperture Science, Inc.\n\n\n");
-    char command[100];
+    char command[STRING_BUFFER_SIZE];
     while (1) {
         if (logout_signal) {
             clear();
@@ -88,7 +88,7 @@ void glados(bool is_cave) {
         } else {
             printf("B:\\>");
         }
-        fgets(command, 100, stdin);
+        fgets(command, sizeof(command), stdin);
         process_glados_command(command, strchr(command, ' ')+1, is_cave);
     }
 }
@@ -102,15 +102,15 @@ void process_command(char *command) {
         printf("faliure, please remain at your workstation. A Crisis Response Team has already been mobilized to deliberate on a response to your crisis.\n\n\n");
         printf("If you need help accessing the system, please refer to your User Handbook.\n\n\n");
     } else if (streq(command, "LOGIN") || streq(command, "LOGIN") || streq(command, "USER")) { 
-        char username[100];
-        char password[100];
+        char username[STRING_BUFFER_SIZE];
+        char password[STRING_BUFFER_SIZE];
         clear();
         printf("Username>");
-        fgets(username, 100, stdin);
+        fgets(username, sizeof(username), stdin);
         clear();
 password_entry:
         printf("Password>");
-        fgets(password, 100, stdin);
+        fgets(password, sizeof(password), stdin);
         bool is_cave = false;
         if (streq(username, "CJOHNSON")) is_cave = true;
         if ((!streq(password, "PORTAL") && !streq(password, "PORTALS") && !is_cave) || (is_cave && !streq(password, "TIER3"))) {
@@ -127,8 +127,8 @@ password_entry:
 void command_prompt() {
     while (1) {
         printf(">");
-        char command[100];
-        fgets(command, 100, stdin);
+        char command[STRING_BUFFER_SIZE];
+        fgets(command, sizeof(command), stdin);
         process_command(command);
     }
 }
