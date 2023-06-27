@@ -1,18 +1,9 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
-
-#define streq(s, s1) (strncasecmp((s), (s1), strlen((s1))) == 0)
-
-void clear() {
-#ifdef _WIN32
-system("cls");
-#else
-system("clear");
-#endif
-}
+#include "glados.h"
 
 void require_continue() {
     char entry[100];

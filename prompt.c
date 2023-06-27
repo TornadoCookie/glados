@@ -2,45 +2,26 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "glados.h"
 
-#define streq(s, s1) (strncasecmp((s), (s1), strlen((s1))) == 0)
+#ifdef _WIN32
+#define reset() system("color 0f");
+#define set_color() system("color 0a")
+#define play_logout() system("powershell -c (New-Object Media.SoundPlayer \"logout.wav\").PlaySync();")
+#define play_portal() system("start https://www.youtube.com/watch?v=KLfJQkIJy58")
+#define run_exec(exec) system(exec)
+#else
+#define reset() printf("\x1b[0;0m")
+#define set_color() printf("\x1b[0;32m")
+#define play_logout() system("aplay logout.wav -q")
+#define play_portal() system("xdg-open https://www.youtube.com/watch?v=KLfJQkIJy58")
+#define run_exec(exec) system("./"exec)
+#endif
 
 bool logout_signal = false;
 
 void logout() {
     logout_signal = true;
-}
-
-void clear() {
-#ifdef _WIN32
-system("cls");
-#else
-system("clear");
-#endif
-}
-
-void reset() {
-#ifdef _WIN32
-system("color 0f");
-#else
-printf("\x1b[0;0m");
-#endif
-}
-
-void set_color() {
-#ifdef _WIN32
-system("color 0A");
-#else
-printf("\x1b[0;32m");
-#endif
-}
-
-void play_logout() {
-#ifdef _WIN32
-system("powershell -c (New-Object Media.SoundPlayer \"logout.wav\").PlaySync();");
-#else
-system("aplay logout.wav -q");
-#endif
 }
 
 void process_glados_command(char *command, char *arg, bool is_cave) {
@@ -75,28 +56,16 @@ void process_glados_command(char *command, char *arg, bool is_cave) {
             printf("\nERROR 03 [What would you like to play?]\n\n\n");
         } else if (streq(arg, "PORTAL")) {
             logout();
-            #ifdef _WIN32
-            system("start https://www.youtube.com/watch?v=KLfJQkIJy58");
-            #else
-            system("xdg-open https://www.youtube.com/watch?v=KLfJQkIJy58");
-            #endif
+            play_portal();
         }
     } else if (streq(command, "TAPEDISK")) {
         printf("\nERROR 18 [User not authorized to transfer system tapes]\n\n\n");
     } else if (streq(command, "LOGOUT")) {
         logout();
     } else if (streq(command, "APPLY")) {
-        #ifdef _WIN32
-        system("apply");
-        #else
-        system("./apply");
-        #endif
+        run_exec("apply");
     } else if (is_cave && streq(command, "NOTES")) {
-        #ifdef _WIN32
-        system("notes");
-        #else
-        system("./notes");
-        #endif
+        run_exec("notes");
     } else if (command[0] == 0) {
         return;
     } else {
@@ -164,8 +133,12 @@ void command_prompt() {
     }
 }
 
+void on_exit() {
+    reset();
+}
+
 int main() {
-    atexit(reset);
+    atexit(on_exit);
     clear();
     set_color();
     command_prompt();
