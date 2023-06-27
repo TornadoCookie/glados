@@ -133,12 +133,12 @@ void command_prompt() {
     }
 }
 
-void on_exit() {
+void reset_on_exit() {
     reset();
 }
 
 int main() {
-    atexit(on_exit);
+    atexit(reset_on_exit);
     clear();
     set_color();
     command_prompt();
