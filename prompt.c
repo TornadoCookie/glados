@@ -44,7 +44,7 @@ void process_glados_command(char *command, char *arg, bool is_cave) {
             printf("DISK VOLUME 255 [NEW EMPLOYEE WORKSTATION]\n\n\n   I 019 APPLY.EXE\n\n\n1 FILE(S) IN 19 BLOCKS\n\n\n\n\n");
         }
     } else if (streq(command, "INTERROGATE")) {
-        if (arg == NULL || arg == 1) {
+        if (arg - 1 == NULL) {
             printf("\nERROR 02 [Command requires at least one parameter]\n\n\n");
         } else if (is_cave) {
             printf("\nERROR 07 [Unknown Employee]\n\n\n");
@@ -52,7 +52,7 @@ void process_glados_command(char *command, char *arg, bool is_cave) {
             printf("\nERROR 01 [Illegal attempt to initate disciplinary action]\n\n\n");
         }
     } else if (streq(command, "PLAY")) {
-        if (arg == NULL || arg == 1) {
+        if (arg - 1 == NULL) {
             printf("\nERROR 03 [What would you like to play?]\n\n\n");
         } else if (streq(arg, "PORTAL")) {
             logout();
