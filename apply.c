@@ -15,7 +15,7 @@ void require_continue() {
     if (!streq(entry, "CONTINUE")) require_continue();
 }
 
-void do_question(int pageN, char *question, bool requires_int) {
+void do_question(int pageN, char *question, bool requires_int, int n_questions) {
     char entry[STRING_BUFFER_SIZE];
     int entry_n;
     clear();
@@ -24,6 +24,7 @@ void do_question(int pageN, char *question, bool requires_int) {
     printf(">");
     if (requires_int) {
         scanf("%d", &entry_n);
+        if (entry_n > n_questions || entry_n < 1) do_question(pageN, question, requires_int, n_questions);
     } else {
         fgets(entry, sizeof(entry), stdin);
     }
@@ -56,7 +57,7 @@ int main() {
     printf("When you are finished memorizing your case sensitive UIN (+L), type \"CONTINUE\" to proceed.\n\n\n");
     require_continue();
 
-    do_question(1, "If given a choice, what would you like to be called?\n\n\n", false);
+    do_question(1, "If given a choice, what would you like to be called?\n\n\n", false, 0);
     do_question(2, "It is important to consult a physician before starting an Aperture Science Enrichment Center program. If one or\n"
                    "more of the statements listed below applies to you, please contact your supervisor to secure permission to consult\n"
                    "a physician before beginning an Enrichment Center program. Pick the condition that most applies to you.\n\n\n"
@@ -64,7 +65,7 @@ int main() {
                    "2] shortness of breath\n"
                    "3] problems waking up in the morning\n"
                    "4] problems staing up 48 hours straight\n"
-                   "5] have nor previously performed an enrichment center program\n\n\n", true);
+                   "5] have nor previously performed an enrichment center program\n\n\n", true, 5);
     do_question(3, "Sally, Dwayne, Anthony, David, and Franklin are, collectively, exactly 10 years apart in age. Sally's two years older\n"
                    "than David. David's favorite letter is 'g'. Anthony's favorite letter is also 'g', but Dwayne has no preference, insisting\n"
                    "that he lkes all the letters equally except for 's'. What is Franklin's favorite letter?\n\n\n"
@@ -85,7 +86,7 @@ int main() {
                    "15] o\n"
                    "16] p\n"
                    "17] q\n"
-                   "18] r\n\n\n", true);
+                   "18] r\n\n\n", true, 25);
     do_question(4, "Which of the following best describes your pain?\n\n\n"
                    "1] Nondescript\n"
                    "2] Shooting\n"
@@ -94,7 +95,7 @@ int main() {
                    "5] Prickly\n"
                    "6] Aching\n"
                    "7] Sharp\n"
-                   "8] Dull\n\n\n", true);
+                   "8] Dull\n\n\n", true, 8);
     do_question(5, "What is your favorite color?\n\n\n"
                    "01] Peach-orange         21] Carmine              41] Brown                 61] Orange               \n"
                    "02] Powder blue          22] Amber                42] Pear                  62] Safety Orange        \n"
@@ -115,7 +116,7 @@ int main() {
                    "17] Lilac                37] Denim                57] Azure                 77] Heliotrope           \n"
                    "18] Blue                 38] Emerald              58] Dark Terra cotta      78] Cinnamon             \n"
                    "19] Midnight Blue        39] Burnt Sienna         59] International orange  79] Chocolate            \n"
-                   "20] Tan                  40] Buff                 60] Red                   80] Goldenrod            \n\n\n", true);
+                   "20] Tan                  40] Buff                 60] Red                   80] Goldenrod            \n\n\n", true, 80);
     do_question(6, "How do others describe your education?\n\n\n"
                    "01] Nursery School\n"
                    "02] Grade School\n"
@@ -126,25 +127,25 @@ int main() {
                    "07] Bachelors\n"
                    "08] Graduate Degree\n"
                    "09] PhD / Post Doctoral\n"
-                   "10] None\n\n\n", true);
+                   "10] None\n\n\n", true, 10);
     do_question(7, "What is your current living situation?\n\n\n"
                    "01] Live Alone\n"
                    "02] Live With Roomate (s)\n"
                    "03] Live With Kids\n"
-                   "04] Live With Parents\n\n\n", true);
+                   "04] Live With Parents\n\n\n", true, 4);
     do_question(8, "Do you require any jewelry for health reasons?\n\n\n"
                    "1] Yes\n"
-                   "2] No\n\n\n", true);
+                   "2] No\n\n\n", true, 2);
     do_question(9, "Do you require socks to be a part of your uniform?\n\n\n"
                    "1] Yes\n"
-                   "2] No\n\n\n", true);
+                   "2] No\n\n\n", true, 2);
     do_question(10, "Do you prefer long or short sleeves?\n\n\n"
                     "1] Long Sleeves\n"
                     "2] Short Sleeves\n"
-                    "3] Sleeveless / Shirtless / No Preference\n\n\n", true);
+                    "3] Sleeveless / Shirtless / No Preference\n\n\n", true, 3);
     do_question(11, "Does your illness prevent you from working?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
+                    "2] No\n\n\n", true, 2);
     do_question(12, "Not including periods of mandatory silence, what is the longest you have gone voluntarily without talking?\n\n\n"
                     "1] 1 Day\n"
                     "2] 2-5 Days\n"
@@ -153,10 +154,10 @@ int main() {
                     "5] 30-90 Days\n"
                     "6] 90 Days - 6 Months\n"
                     "7] 1 Year\n"
-                    "8] Greater Than 1 Year\n\n\n", true);
+                    "8] Greater Than 1 Year\n\n\n", true, 8);
     do_question(13, "Do you require music to perform simple tasks?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
+                    "2] No\n\n\n", true, 2);
     do_question(14, "Your favorite color is:\n\n\n"
                    "01] Camouflage green     21] Dark pastel green    41] Terra cotta           61] Bright violet        \n"
                    "02] Sangria              22] Dark brown           42] Blaze Orange          62] Corn                 \n"
@@ -177,17 +178,17 @@ int main() {
                    "17] Dark light blue      37] Dark pink            57] Dark green            77] Celadon              \n"
                    "18] Dark slate gray      38] Aquamarine           58] Yankee Yellow         78] Dark Scarlet         \n"
                    "19] Mustard              39] Slate gray           59] Navajo white          79] Yellow               \n"
-                   "20] Hot pink             40] Royal Blue           60] Fern green            80] Black                \n\n\n", true);
+                   "20] Hot pink             40] Royal Blue           60] Fern green            80] Black                \n\n\n", true, 80);
     do_question(15, "Lying about my favorite color makes me feel:\n\n\n"
                     "1] Sorry\n"
-                    "2] Not Sorry\n\n\n", true);
+                    "2] Not Sorry\n\n\n", true, 2);
     do_question(16, "Are you plagued by suspicions that other people, including coworkers and relatives, may be doing things behind\n"
                     "your back that will hurt you?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
+                    "2] No\n\n\n", true, 2);
     do_question(17, "What is your favorite meal?\n\n\n"
                     "1] Lunch\n"
-                    "2] Dinner\n\n\n", true);
+                    "2] Dinner\n\n\n", true, 2);
     do_question(18, "Which pre-Christian mathematician is not correctly matched to his home city?\n\n\n"
                     "01] Thales of Miletus        21] Xenocrates of Chalcedon  \n"
                     "02] Anaximander of Miletus   22] Heraclides of Pontus     \n"
@@ -208,7 +209,7 @@ int main() {
                     "17] Theaetetus of Athens     37] Hypsicles of Alexandria  \n"
                     "18] Leodamas of Thasos       38] Hipparchus of Nicaea     \n"
                     "19] Eudoxus of Cnidos        39] Zeno of Sidon            \n"
-                    "20] Callipus of Cyzicus      40] Geminus of Rhodes        \n\n\n", true);
+                    "20] Callipus of Cyzicus      40] Geminus of Rhodes        \n\n\n", true, 40);
     do_question(19, "Please choose the description that best describes your personality:\n\n\n"
                     "01] Childish\n"
                     "02] Oafish\n"
@@ -219,14 +220,14 @@ int main() {
                     "07] Scornful\n"
                     "08] Boastful\n"
                     "09] Sleepy\n"
-                    "10] Stable\n\n\n", true);
+                    "10] Stable\n\n\n", true, 10);
     do_question(20, "A cake can be sliced into more than seven pieces by making only four diameter cuts through its center.\n\n\n"
                     "1] True\n"
-                    "2] False\n\n\n", true);
+                    "2] False\n\n\n", true, 2);
     do_question(21, "Other than a large egret, what wild animal would you like  to domesticate? NOTE: Several choices, including, but not\n"
                     "limited to, 'Large Egret', may trigger an investigation. Your supervisor has no further information about instigating\n"
                     "animals or the investigatory process, though, upon request, your supervisor can provide further details about this or\n"
-                    "her authorized prophylactic unfamiliarity with procedure.\n\n\n[NO DATA, DO THIS LATER!]\n\n\n", true);
+                    "her authorized prophylactic unfamiliarity with procedure.\n\n\n[NO DATA, DO THIS LATER!]\n\n\n", false, 0);
     do_question(22,"Which interrogation technique do you think would be most effective on you?\n\n\n"
                    "01] Going Next Door              21] The Spinoza                  41] The Little Bird               \n"
                    "02] Pain                         22] Gospel Shark                 42] Welcome to Bethany            \n"
@@ -247,34 +248,34 @@ int main() {
                    "17] Hangri-La                    37] Role-Role Theory             \n"
                    "18] Ivan Is a Dope               38] Zipf's Law                   \n"
                    "19] Joint Interrogators          39] Stream of Unconsciousness    \n"
-                   "20] Law of Partial Pressure      40] Flash in the Pan             \n\n\n", true);
+                   "20] Law of Partial Pressure      40] Flash in the Pan             \n\n\n", true, 44);
     do_question(23, "Have you experienced recurrent thoughts of regicide?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
+                    "2] No\n\n\n", true, 2);
     do_question(24, "If you answered 'yes' to the previous question, please rate the following statement: I know what 'regicide' means.\n\n\n"
                     "1] Strongly Disagree\n"
                     "2] Disagree\n"
                     "3] Agree\n"
                     "4] Strongly Agree\n"
-                    "5] N/A\n\n\n", true);
+                    "5] N/A\n\n\n", true, 5);
     do_question(25, "You are a liar:\n\n\n"
                     "1] Can't Honestly Disagree\n"
                     "2] Agree\n"
-                    "3] Strongly Agree\n\n\n", true);
+                    "3] Strongly Agree\n\n\n", true, 3);
     do_question(26, "Can you flash your ROM?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
+                    "2] No\n\n\n", true, 2);
     do_question(27, "Please acknowledge before continuing:\n\n\n"
                     "I understand that my responses to all items in this questionnaire are the property of Aperture Science. As such,\n"
                     "they will remain strictly confidential, though they may be used to distribute prizes and/or initiate, prolong, or\n"
                     "modify the invasive properties of authorized questioning, investigation, testing, and surveillance.\n\n\n"
-                    "1] I have read all or most of the above.\n\n\n", true);
+                    "1] I have read all or most of the above.\n\n\n", true, 1);
     do_question(28, "Are you functionally incapacitated by witnessing other people's misery?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
+                    "2] No\n\n\n", true, 2);
     do_question(29, "Do you get pelasure from solitary pursuits?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
+                    "2] No\n\n\n", true, 2);
     do_question(30, "What is your favorite flatware for, purely as an example, eating cake?\n\n\n"
                     "01] Spoon\n"
                     "02] Fork\n"
@@ -287,7 +288,7 @@ int main() {
                     "09] Fish Fork\n"
                     "10] Table Fork\n"
                     "11] Pastry Fork\n"
-                    "12] Knife\n\n\n", true);
+                    "12] Knife\n\n\n", true, 12);
     do_question(31, "What is your favorite number between 31 and 37?\n\n\n"
                     "1] 31\n"
                     "2] 32\n"
@@ -295,12 +296,12 @@ int main() {
                     "4] 34\n"
                     "5] 35\n"
                     "6] 36\n"
-                    "7] 37\n\n\n", true);
+                    "7] 37\n\n\n", true, 7);
     do_question(32, "Do you trust yourself?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
+                    "2] No\n\n\n", true, 2);
     do_question(33, "In case you forget your UIN (+L) and need to retrieve it later, please list a crime that only you would know that you\n"
-                    "have commmitted:\n\n\n", false);
+                    "have commmitted:\n\n\n", false, 0);
     do_question(34, "How often do you exercise?\n\n\n"
                     "01] Every Day\n"
                     "02] Every Other Day\n"
@@ -311,19 +312,19 @@ int main() {
                     "07] Yearly\n"
                     "08] Every Few Years\n"
                     "09] Once a Decade\n"
-                    "10] Once\n\n\n", true);
+                    "10] Once\n\n\n", true, 10);
     do_question(35, "If you disappeared tomorrow would anyone miss you?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
+                    "2] No\n\n\n", true, 2);
     do_question(36, "Would you like to use a prism to study light?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
+                    "2] No\n\n\n", true, 2);
     do_question(37, "Do you feel depressed, guilty, or remorseful?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
+                    "2] No\n\n\n", true, 2);
     do_question(38, "Do you ever have feelings that people are talking about you or watching you?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
+                    "2] No\n\n\n", true, 2);
     do_question(39, "Rate the pain you have been able to withstand without losing consciousness:\n\n\n"
                     "01] 1 - Slight Pain\n"
                     "02] 2\n"
@@ -334,7 +335,7 @@ int main() {
                     "07] 7\n"
                     "08] 8\n"
                     "09] 9\n"
-                    "10] 10 - Worst Pain Imaginable\n\n\n", true);
+                    "10] 10 - Worst Pain Imaginable\n\n\n", true, 10);
     do_question(40, "Complete the following statement with the answer that DOES NOT apply to you:\n"
                     "I am often:\n\n\n"
                     "01] worried that life is vague and unreal\n"
@@ -346,7 +347,7 @@ int main() {
                     "07] irritated by my past faliures and children\n"
                     "08] too depressed to kill an animal or colleague in order to put it out of its pain\n"
                     "09] convinced of the correctness of my opinions on subjects about which I am not an expert\n"
-                    "10] speaking very slowly for no apparent reason\n\n\n", true);
+                    "10] speaking very slowly for no apparent reason\n\n\n", true, 10);
     do_question(41, "On a scale of 12 to 11, with the 12 possible choices arranged as on the face of a clock, how would you rate your\n"
                     "awareness of any habitual physical mannerisms such as tugging your ear or hair, eye twitches, hand spasms, etc.?\n\n\n"
                     "01] 12\n"
@@ -360,32 +361,32 @@ int main() {
                     "09] 8\n"
                     "10] 9\n"
                     "11] 10\n"
-                    "12] 11\n\n\n", true);
-    do_question(42, "First Pet's Name:\n\n\n", false);
+                    "12] 11\n\n\n", true, 12);
+    do_question(42, "First Pet's Name:\n\n\n", false, 0);
     do_question(43, "Do you regularly experience deja vu?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
-    do_question(44, "Complete this sentence,\n\n\n", false);
+                    "2] No\n\n\n", true, 2);
+    do_question(44, "Complete this sentence,\n\n\n", false, 0);
     do_question(45, "Do you feel bad that you have let your coworkers and/or larger mandated collective down?\n\n\n"
                     "1] Yes\n"
-                    "2] No\n\n\n", true);
+                    "2] No\n\n\n", true, 2);
     do_question(46, "Pick the sentence that incorrectly employs the word 'excruciating'.\n\n\n"
                     "1] The test caused excruciating pain.\n"
                     "2] The participant felt excruciating pain.\n"
-                    "3] I like to eat cake while excruciating.\n\n\n", true);
+                    "3] I like to eat cake while excruciating.\n\n\n", true, 3);
     do_question(47, "Choose the correct inspiration for this inspiration phrase, \"You can succeed best and quickest by going it alone.\"\n\n\n"
                     "1] Purpose\n"
                     "2] Patience\n"
                     "3] Success\n"
                     "4] Endurance\n"
                     "5] Courage\n"
-                    "6] Teamwork\n\n\n", true);
+                    "6] Teamwork\n\n\n", true, 6);
     do_question(48, "I express my opinions, even if others in the group disagree with me:\"\n\n\n"
                     "1] Almost never\n"
                     "2] Rarely\n"
                     "3] Sometimes\n"
                     "4] Quite often\n"
-                    "5] Most of the time\n\n\n", true);
+                    "5] Most of the time\n\n\n", true, 5);
     do_question(49, "Pick your favorite type of cake.\n\n\n"
                    "01] Angel food cake      21] Eccles cake          41] Pineapple Upside Down Cake \n"
                    "02] Apple cake           22] Fairy cake           42] Pound cake            \n"
@@ -406,8 +407,8 @@ int main() {
                    "17] Croquembouche        37] Orehnjac(a           57] Vanilla slice         \n"
                    "18] Cupcake              38] Pancake              58] Vanilla Crazy Cake    \n"
                    "19] Date and walnut loaf 39] Panettone            59] Victoria Sponge       \n"
-                   "20] Devil's food cake    40] Petit fours          60] Wedding cake          \n\n\n", true);
-    do_question(50, "Gender\n\n\n", false);
+                   "20] Devil's food cake    40] Petit fours          60] Wedding cake          \n\n\n", true, 60);
+    do_question(50, "Gender\n\n\n", false, 0);
     clear();
     printf("Congratulations!\n\n\n");
     printf("You have finished the:\n\n\n");
