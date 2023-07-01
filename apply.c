@@ -36,7 +36,7 @@ int main() {
     srand(time(NULL));
     clear();
     printf("Loaded: ENRICHMENT CENTER TEST SUBJECT APPLICATION PROCESS\n");
-    printf("FORM  : FORMS-EN-2873-FORM (PART1: PERSONALITY & GENERAL KNOWLDEDGE)\n\n\n");
+    printf("FORM  : FORMS-EN-2873-FORM (PART1: PERSONALITY & GENERAL KNOWLEDGE)\n\n\n");
     printf("If you are a first time applicant, please type \"CONTINUE.\"\n\n\n");
     printf("DISREGARD THIS INSTRUCTION if you are returning to form FORMS-EN-2873-FORM after a\n");
     printf("break of any duration for any reason. In that case, you MUST contact your supervisor\n");
@@ -45,7 +45,7 @@ int main() {
     printf("If permission to type \"CONTINUE\" has been granted, please do so now, unless the box\n");
     printf("labeled \"DO NOT TYPE CONTINUE\" on the \"Forms Re-Sanction\" form you should have recieved\n");
     printf("from your supervisor is checked, in which case you should remain at your workstation\n");
-    printf("not typing \"CONTINUE\" until such a time as your are instructed by your supervisor to\n");
+    printf("not typing \"CONTINUE\" until such a time as you are instructed by your supervisor to\n");
     printf("discontinue not typing it.\n\n\n");
     require_continue();
     clear();
@@ -64,11 +64,11 @@ int main() {
                    "1] dizziness\n"
                    "2] shortness of breath\n"
                    "3] problems waking up in the morning\n"
-                   "4] problems staing up 48 hours straight\n"
+                   "4] problems staying up 48 hours straight\n"
                    "5] have nor previously performed an enrichment center program\n\n\n", true, 5);
     do_question(3, "Sally, Dwayne, Anthony, David, and Franklin are, collectively, exactly 10 years apart in age. Sally's two years older\n"
                    "than David. David's favorite letter is 'g'. Anthony's favorite letter is also 'g', but Dwayne has no preference, insisting\n"
-                   "that he lkes all the letters equally except for 's'. What is Franklin's favorite letter?\n\n\n"
+                   "that he likes all the letters equally except for 's'. What is Franklin's favorite letter?\n\n\n"
                    "01] a           19] t\n"
                    "02] b           20] u\n"
                    "03] c           21] v\n"
